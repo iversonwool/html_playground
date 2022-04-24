@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs</title>
+  <link rel="stylesheet" href="tabs.css">
+</head>
+<body>
+<div class="container">
+  <div class="navContainer">
+    <div class="navItem" data-tab="one">One</div>
+    <div class="navItem" data-tab="two">Two</div>
+    <div class="navItem" data-tab="three">Three</div>
+  </div>
+  <div class="holder">
+    <div class="content">
+      <div class="item" style="visibility: visible;">
+        Tab One
+      </div>
+      <div class="item" style="visibility: hidden;">
+        Tab Two
+      </div>
+      <div class="item" style="visibility: hidden;">
+        Tab three
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function show(tab, idx) {
+    if ((tab === 'one' && idx === 0) || (tab === 'two' && idx === 1) || (tab === 'three' && idx === 2)) {
+      return {visibility: 'visible'}
+    }
+    return {visibility: 'hidden', height: 0, overflowY: 'hidden'}
+  }
+
+  let tabContent = document.querySelector('.content')
+  // console.dir(tabContent)
+
+  let navContainer = document.querySelector('.navContainer')
+  navContainer.addEventListener('click', navClickHandle)
+
+
+  function navClickHandle(event) {
+    let target = event.target
+    if (target.tagName !== 'DIV') return
+    const tab = target.dataset.tab
+    if (!tab) return;
+    if (tab === 'one') tabContent.style.marginLeft = '0'
+    if (tab === 'two') tabContent.style.marginLeft = '-100%'
+    if (tab === 'three') tabContent.style.marginLeft = '-200%'
+
+    for (let i = 0; i < tabContent.childElementCount; i++) {
+      tabContent.children[i].style.visibility = show(tab, i).visibility === 'visible' ? 'visible' : 'hidden'
+      tabContent.children[i].style.height = show(tab, i).height === 0 ? 0 : ''
+      tabContent.children[i].style.overflowY = show(tab, i).overflowY === 'hidden' ? 'hidden' : ''
+
+    }
+  }
+
+</script>
+</body>
+</html>
