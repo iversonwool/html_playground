@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZM - Test</title>
+
+
+  <style>
+    ul {
+      list-style-type: none;
+    }
+    #first li {
+      width: 100px;
+      height: 40px;
+    }
+
+    .zmkt {
+      position: relative;
+      width: 500px;
+      height: 300px;
+      background-color: rgba(255, 0, 0, .2);
+      /*opacity: 20%;*/
+    }
+
+    .sub {
+      position: absolute;
+      height: 50px;
+      width: 100%;
+      background-color: black;
+      color: white;
+      line-height: 50px;
+      transform: translateY(-50%);
+      text-align: center;
+      top: 50%;
+    }
+
+
+    #zmkt {
+      width: 200px;
+      border-right: 2px solid #888;
+      padding-right: 20px;
+    }
+    .unit {
+      height: 50px;
+      text-align: right;
+      color : #101a0a;
+    }
+    .unit:hover {
+      border-right: 2px solid #bd002a;
+      font-weight: bolder;
+      color: #bd002a;
+      padding-right: 20px;
+      margin-right: -22px;
+    }
+
+    .opera {
+      position: relative;
+      width: 258px;
+      height: 275px;
+      background-color: #f22629;
+      border-radius: 50%;
+    }
+    .opera-top {
+      position: absolute;
+      width: 112px;
+      height: 230px;
+      background-color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+
+
+
+<body>
+  <! 黑白相间的条纹 -->
+
+  <ul id="first">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+
+  <form id="form" style="background-color: #E8C48F">
+
+
+  </form>
+
+  <div class="zmkt">
+
+    外层div背景透明，背景颜色为f00,透明度为20%
+    <div class="sub">
+      内层文字不透明，背景颜色000，字体颜色为#fff
+    </div>
+
+  </div>
+
+  <ul id="zmkt">
+
+    <li class="unit">首页</li>
+    <li class="unit">联系方式</li>
+    <li class="unit">地理位置</li>
+    <li class="unit">关于我们</li>
+  </ul>
+
+
+  <div class="opera">
+    <div class="opera-top"></div>
+  </div>
+
+  <script>
+    /**
+     *  黑白相间
+     */
+    const ul = document.body.firstElementChild
+
+    const lis = ul.children
+    for (let i = 0;i < lis.length;i ++) {
+        const li = lis[i]
+        if (i % 2) {
+          li.style.backgroundColor = '#000'
+        } else {
+          li.style.backgroundColor = '#aaa'
+        }
+    }
+  </script>
+
+  <script>
+
+    // input 设置
+    const input = document.createElement('input')
+    input.style.width = '150px'
+    input.style.height = '50px'
+    input.style.marginTop = '50px'
+    input.type = 'text'
+    input.value = '请输入电话号码'
+    form.append(input)
+  </script>
+
+  <script>
+
+    // 文字带背景居中
+  </script>
+
+  <script>
+    // 模拟tab
+  </script>
+
+
+  <script>
+
+    // 模拟Opera浏览器
+  </script>
+</body>
+</html>
