@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll View</title>
+
+  <style>
+    body {
+      margin: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .banner {
+      /*flex: 1 0 200px;*/
+    }
+
+    .scroll {
+      flex: 1;
+      overflow-y: auto;
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+<body >
+  <div class="container" style="height: 100vh;background-color: antiquewhite;">
+
+
+    <div class="banner" style="height: 200px;background-color: #bd002a"></div>
+    <div class="scroll">
+
+
+      <div style="height: 1000px;background-color: blueviolet"></div>
+    </div>
+  </div>
+</body>
+</html>
