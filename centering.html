@@ -1,4 +1,34 @@
 <!DOCTYPE html>
+
+
+
+<!--
+ 1 - 水平居中方案
+
+    - 行内元素 text-align
+    - 块元素 margin
+    - 多个元素 text-align flex margin
+
+ 2 - 垂直居中方案
+
+  - inline
+    - 不知道多高 直接padding
+
+    - display: table
+
+    - flex
+    -  “ghost element”
+  - block
+
+    - position absolute  知道多高 可以margin-top， 不知道transform: translateY(-50%)
+    - 不在乎本身高度 只要能居中 那么使用table-cell
+    - flex
+    - flex + margin auto
+    
+  - both
+
+    - grid + margin: auto
+ -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +37,8 @@
   <style>
     body {
       margin: 0;
+      height: 100vh;
+      display: flex;
     }
 
     main {
@@ -38,32 +70,50 @@
     /*}*/
 
 
-    /*main {*/
-    /*  background: white;*/
-    /*  margin: 20px 0;*/
-    /*  padding: 10px;*/
-    /*}*/
+    main {
+      background: white;
+      margin: 20px 0;
+      padding: 10px;
+    }
 
-    /*main div {*/
-    /*  background: black;*/
-    /*  color: white;*/
-    /*  padding: 15px;*/
-    /*  max-width: 125px;*/
-    /*  margin: 5px;*/
-    /*}*/
+    main div {
+      background: black;
+      color: white;
+      padding: 15px;
+      max-width: 125px;
+      margin: 5px auto;
+    }
 
-    /*.inline-block-center {*/
-    /*  text-align: center;*/
-    /*}*/
-    /*.inline-block-center div {*/
-    /*  display: inline-block;*/
-    /*  text-align: left;*/
-    /*}*/
 
-    /*.flex-center {*/
-    /*  display: flex;*/
-    /*  justify-content: center;*/
-    /*}*/
+    main div:nth-child(1) {
+      width: 200px;
+    }
+    main div:nth-child(2) {
+      width: 400px;
+    }
+    main div:nth-child(3) {
+      width: 125px;
+    }
+
+    /*
+    .inline-block-center {
+      text-align: center;
+      background-color: #bd002a;
+    }
+    .inline-block-center div {
+      display: inline-block;
+      text-align: left;
+    }
+    采用text-align 处理多元素居中
+     */
+
+    /*
+    .flex-center {
+      display: flex;
+      justify-content: center;
+    }
+    采用flex处理多元素居中
+     */
   </style>
 </head>
 <body>
@@ -74,29 +124,54 @@
 <!--  </div>-->
 
 
-<!--  <main class="inline-block-center">-->
-<!--    <div>-->
-<!--      I'm an element that is block-like with my siblings and we're centered in a row.-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      I'm an element that is block-like with my siblings and we're centered in a row.-->
-<!--    </div>-->
-<!--  </main>-->
+<!--
+  <main class="inline-block-center">
+    <div>
+      I'm an element that is block-like with my siblings and we're centered in a row.
+    </div>
+    <div>
+      I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.
+    </div>
+    <div>
+      I'm an element that is block-like with my siblings and we're centered in a row.
+    </div>
+  </main>
+-->
 
-<!--  <main class="flex-center">-->
-<!--    <div>-->
-<!--      I'm an element that is block-like with my siblings and we're centered in a row.-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      I'm an element that is block-like with my siblings and we're centered in a row.-->
-<!--    </div>-->
-<!--  </main>-->
+<!--
+  <main class="flex-center">
+    <div>
+      I'm an element that is block-like with my siblings and we're centered in a row.
+    </div>
+    <div>
+      I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.
+    </div>
+    <div>
+      I'm an element that is block-like with my siblings and we're centered in a row.
+    </div>
+  </main>
+
+  -->
+
+
+<!--<div style="line-height: 40px;">-->
+
+<!--  xxx-->
+<!--</div>-->
+
+<div style="width: 100px;height: 100px;background-color: #bd002a;margin: auto;"></div>
+<!--
+<main>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row.
+  </div>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.
+  </div>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row.
+  </div>
+</main> -->
 
 <!--  <main>-->
 <!--    <a href="#0">We're</a>-->
@@ -105,8 +180,8 @@
 <!--    <a href="#0">Text</a>-->
 <!--  </main>-->
 
-  <div style="background-color: magenta;padding: 30px 0;">
-    hello
-  </div>
+<!--  <div style="background-color: magenta;padding: 30px 0;">-->
+<!--    hello-->
+<!--  </div>-->
 </body>
 </html>
