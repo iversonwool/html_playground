@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Circle</title>
+    <link rel="stylesheet" href="./progress_ring.css">
+  </head>
+  <body>
+    <svg width="120" height="120" class="progress_ring">
+      <circle
+        class="progress_ring__circle"
+        r="52"
+        fill="transparent"
+        cx="60"
+        cy="60"
+        
+        stroke-width="4"
+        stroke="white"
+      >
+        <!-- circle 的stroke-width 会从直径圆分别向内外延申一半 -->
+      </circle>
+    </svg>
+    <input type="number" min="0" max="100" step="5">
+
+    <script>
+
+      const circle = document.querySelector('.progress_ring__circle')
+      const radius = circle.r.baseVal.value
+      console.log('radius', radius)
+      const circumference = Math.PI * 2 * radius
+      circle.style.strokeDasharray = `${circumference} ${circumference}`
+      circle.style.strokeDashoffset = `${circumference}`
+
+      function setProgress(progress) {
+        const offset = (1 - (progress / 100)) * circumference
+        circle.style.strokeDashoffset = `${offset}`
+      }
+
+      // setProgress(50)
+
+      const input = document.querySelector('input')
+      input.addEventListener('change', function (e) {
+        if (input.value < 101 && input.value > -1) {
+          setProgress(input.value)
+        }
+      })
+
+      setTimeout(() => {
+        setProgress(50)
+      }, 1000)
+    </script>
+  </body>
+</html>
