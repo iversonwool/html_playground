@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FakeReact</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  // reference https://pomb.us/build-your-own-react/
+
+  // step I: the createElement function
+  // step II: the render function
+  // step III: concurrent mode
+  // step IV: fibers
+  // step V: render and commit phases
+  // step VI: reconciliation
+  // step VII: function componnets
+  // step VIII: hooks
+
+  let nextUnitOfWork = null
+
+  function performUnitOfWork(nextUnitOfWork) {
+
+  }
+  function workLoop(deadline) {
+    let shouldYield = false
+    while (nextUnitOfWork && !shouldYield) {
+      nextUnitOfWork = performUnitOfWork(nextUnitOfWork)
+      shouldYield = deadline.timeRemaining() < 1
+    }
+
+    requestIdleCallback(workLoop)
+  }
+
+  function createElement(type, props, ...children) {
+    return {
+      type,
+      props: {
+        ...props,
+        children
+      }
+    }
+  }
+
+  function render(element, container) {
+    const dom = element.type === 'TEXT_ELEMENT'
+      ? document.createTextNode('')
+      : document.createElement(element.type)
+    Object.entries(element.props).forEach(([key, value]) => {
+      dom[key] = value
+    })
+    element.props.children.forEach(child => render(child, dom))
+
+    container.append(dom)
+  }
+  const FakeReact = {
+    createElement,
+    render
+  }
+
+  FakeReact.render(
+    // <h1>Hello, Fake React!</>
+    FakeReact.createElement(
+      'h1',
+      { innerText: 'Hello, Fake React!' },
+      // FakeReact.createElement(
+      //   'TEXT_ELEMENT',
+      //   { nodeValue: 'Hello, Fake React!'}
+      // )
+    ),
+    document.getElementById('root')
+  )
+</script>
+</body>
+</html>
