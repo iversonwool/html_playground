@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>No Build Vue</title>
+  <script src="vue.js"></script>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h1 class="red">{{message}}</h1>
+</div>
+<script>
+  const App = Vue.extend({
+    data() {
+      return {
+        message: 'hhh'
+      }
+    },
+    template: '<div class="red">{{ message }}</div>'
+    // render(h) {
+    //   return h('h2', {class: 'red'}, 'Heel')
+    // }
+  })
+  console.log(Vue)
+  new Vue({
+    // render: h => h(App)
+    data() {
+      return {
+        message: 'hhh'
+      }
+    },
+  }).$mount('#app')
+</script>
+</body>
+</html>
