@@ -25,8 +25,8 @@
   </style>
 </head>
 <body>
-  <div class="box box1"></div>
-  <div class="box box2"></div>
+  <div class="box box1" id="magenta-box"></div>
+  <div class="box box2" id="cyan-box"></div>
 
 <meter value="12" max="100"></meter>
 
@@ -43,5 +43,82 @@
 
   </li>
 </ul>
+
+<script type="text/javascript" >
+  // scope
+  let a= 1;
+  function update() {
+    let a = 2;
+    console.log('a', a)
+    {
+      let a = 3;
+      console.log('a', a)
+    }
+  }
+  console.log('a', a)
+  update()
+
+  // custom event
+  const customEventName = 'say-hello';
+
+  // subscribe
+  document.addEventListener(customEventName, (e => {
+    alert('Hello '+ e.detail.name + '!')
+    console.log('a %s user event', e.isTrusted ? 'real' : 'fake')
+  }))
+  // publish
+  document.getElementById('magenta-box').onclick = (e => {
+    console.log('e', e)
+    const event = new CustomEvent(customEventName, {
+      detail: {name: 'LeeHow'}
+    })
+    document.dispatchEvent(event)
+  })
+
+
+  with({a: 3}){
+    a = 1;
+  }
+  console.log('a', a)
+
+
+</script>
+
+
+  <script>
+    const promise1 = Promise.resolve('Promise 1 resolved');
+    const promise2 = Promise.reject('Promise 2 rejected');
+    const promise3 = Promise.resolve('Promise 3 resolved');
+
+    Promise.all([promise1, promise3])
+    .then((values) => {
+      
+      console.log(values);
+    })
+    .catch((error) => {
+      console.log('An error occurred in Promise.all():', error, typeof error);
+    });
+
+
+    Promise.allSettled([promise1, promise2]).then((results) => {
+      console.log('results', results);
+      results.forEach((result, index) => {
+        if (result.status === 'fulfilled') {
+          console.log(
+            `Promise ${index + 1} was fulfilled with value:`,
+            result.value
+          );
+        } else {
+          console.log(
+            `Promise ${index + 1} was rejected with reason:`,
+            result.reason
+          );
+        }
+      });
+    });
+
+    let obj = {a: 1, b: 2, c: 3, d: 4}
+    Object.freeze(obj)
+  </script>
 </body>
 </html>
