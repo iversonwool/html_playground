@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>a iframe can be embed</title>
+</head>
+<body style="background-color: aliceblue;">
+  <label for="iframeInput">iframe input</label><input id="iframeInput">
+
+  <script>
+    const input = document.getElementById('iframeInput')
+    function onMessage(e) {
+      const {data} = e
+      input.value = data
+      console.log(e)
+
+
+      e.ports[0].postMessage('a message from iframe')
+
+      // window.postMessage('A message from self!')
+    }
+    window.addEventListener('message', onMessage)
+  </script>
+</body>
+</html>

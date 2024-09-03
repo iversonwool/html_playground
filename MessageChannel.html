@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Message Channel</title>
+</head>
+<body>
+
+  <label for="showInput">a message from an iframe</label><input id="showInput">
+  <br>
+  <br>
+  <iframe style="border: none;border-radius: 8px;" id="iframe2" src="MessageChannel2.html"></iframe>
+
+  <script>
+    const channel = new MessageChannel()
+    const input = document.getElementById("showInput")
+
+    function onMessage(e) {
+      console.log(e)
+      const {data} = e
+
+      input.value = data
+    }
+    function iframeOnLoad() {
+      channel.port1.onmessage = onMessage
+
+      iframe.contentWindow.postMessage('A message from host page!', '*', [channel.port2])
+    }
+    const iframe = document.getElementById('iframe2')
+    iframe.addEventListener('load', iframeOnLoad)
+
+    // window.addEventListener('message', onMessage)
+  </script>
+</body>
+</html>
