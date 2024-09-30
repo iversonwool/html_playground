@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Loop</title>
+</head>
+<body>
+<h1 id="h1-title">Hello, World!</h1>
+<button id="change-btn">change the title</button>
+
+<script>
+  const title = document.getElementById('h1-title')
+  const btn = document.getElementById("change-btn")
+
+  function sleep(delay) {
+    const now = performance.now()
+    while (performance.now() - now < delay) {}
+  }
+
+
+  btn.onclick = function () {
+    title.textContent = "你好，世界！"
+    sleep(3000)
+  }
+</script>
+</body>
+</html>
