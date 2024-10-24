@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart Animation</title>
+  <style>
+    body {
+      /*margin: 0;*/
+    }
+    :root {
+      --ball-width: 60px;
+    }
+    .add-ball {
+      position: fixed;
+      width: var(--ball-width);
+      height: var(--ball-width);
+      display: inline-block;
+      border-radius: 50%;
+      background-color: #E8C48F;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: var(--ball-width);
+      z-index: 3;
+      transition: .6s linear;
+      left: 0;
+      top: 0;
+      margin-left: -20rem;
+      margin-top: -20rem;
+    }
+    .ball {
+      background-color: magenta;
+      width: var(--ball-width);
+      height: var(--ball-width);
+      border-radius: 50%;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 128px;
+      background-color: cyan;
+      display: flex;
+      align-items: center;
+      /*padding-left: 30px;*/
+    }
+
+    .item {
+      height: 150px;
+      background-color: cadetblue;
+      margin-top: 10px;
+      border-radius: 10px;
+      position: relative;
+    }
+    .item .button {
+      position: absolute;
+      font-size: 0;
+      right: 30px;
+      top: 40px;
+      cursor: pointer;
+    }
+    .item .button .fake-button {
+      width: var(--ball-width);
+      height: var(--ball-width);
+      display: inline-block;
+      border-radius: 50%;
+      background-color: #E8C48F;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: var(--ball-width);
+    }
+
+    .plus {
+      width: var(--ball-width);
+      height: var(--ball-width);
+      display: block;
+      border-radius: 50%;
+      background-color: #E8C48F;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: var(--ball-width);
+      transition: .6s cubic-bezier(.5, -.5, 1, 1);
+    }
+  </style>
+</head>
+<body>
+<!--<div class="add-ball"></div>-->
+
+
+<div class="item">
+  <div class="button">
+    <span class="fake-button">+</span>
+  </div>
+</div>
+<div class="item">
+
+</div>
+<div class="item">
+
+</div>
+<footer>
+  <div class="ball">
+
+  </div>
+</footer>
+<script>
+  const addBtn = document.querySelector('.fake-button')
+  // const addBall = document.querySelector('.add-ball')
+  const carBall = document.querySelector('.ball')
+
+  const rect = addBtn.getBoundingClientRect()
+  const carRect = carBall.getBoundingClientRect()
+  console.log(carRect)
+  addBtn.addEventListener('click', animate)
+function animate(event) {
+  // console.log(event)
+
+  const ball = document.createElement('div')
+  const plus = document.createElement('span')
+  plus.textContent = '+'
+  ball.className = 'add-ball'
+  plus.className = 'plus'
+  ball.style.transform = `translateX(${rect.left}px)`
+  plus.style.transform = `translateY(${rect.top}px)`
+  ball.append(plus)
+  document.body.append(ball)
+  ball.clientWidth;
+
+  ball.style.transform = `translateX(${carRect.left}px)`
+  plus.style.transform = `translateY(${carRect.top}px)`
+
+
+  ball.addEventListener('transitionend', function () {
+    ball.remove()
+  }, { once: true })
+}
+</script>
+</body>
+</html>
