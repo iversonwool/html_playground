@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Matrix</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    #square {
+      width: 100px;
+      height: 100px;
+      background-color: #000000;
+      margin-bottom: 10px;
+    }
+    canvas {
+      background-color: #000000;
+    }
+  </style>
+</head>
+<body>
+
+<!--<div id="square">-->
+
+<!--</div>-->
+<!--<button onclick="setSquareColor()">-->
+<!--  Random Color-->
+<!--</button>-->
+
+<canvas id="matrix"></canvas>
+<script>
+  const square = document.getElementById('square')
+  const width = window.innerWidth * devicePixelRatio
+  const height = window.innerHeight * devicePixelRatio
+  const fontSize = 20 * devicePixelRatio
+  //  列宽
+  const columnWidth = fontSize
+  // 每列多少个
+  const columnCount =  Math.floor(width / columnWidth)
+
+  const nextChar = Array(columnCount).fill(0)
+  const canvas = document.getElementById('matrix')
+  canvas.width = width
+  canvas.height = height
+  const ctx = canvas.getContext('2d')
+  function randomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`
+  }
+  function randomChar() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    return chars.charAt(Math.floor(Math.random() * chars.length))
+  }
+
+  function setSquareColor() {
+    square.style.backgroundColor = randomColor()
+  }
+
+  console.log('有多少列', columnCount)
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, .5)'
+    ctx.fillRect(0, 0, width, height)
+    for (let i = 0; i < columnCount; i++) {
+      const char = randomChar()
+      ctx.fillStyle = randomColor()
+      ctx.font = `${fontSize}px Robot Mono`
+      const x = columnWidth * i
+      const index = nextChar[i]
+      const y = fontSize * (index + 1)
+      ctx.fillText(char, x, y)
+      // 终止条件
+      if (y >= height && Math.random() > 0.99) {
+        nextChar[i] = 0
+      } else {
+        nextChar[i] += 1
+      }
+    }
+
+    // requestAnimationFrame(draw)
+  }
+
+
+  // requestAnimationFrame(draw)
+  setInterval(draw, 40)
+</script>
+</body>
+</html>
