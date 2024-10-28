@@ -4,24 +4,29 @@
   <meta charset="UTF-8">
   <title>Shopping Cart Animation</title>
   <style>
+    html {
+      font-size: 0.125vw;
+    }
     body {
       /*margin: 0;*/
+      font-size: 35rem;
     }
     :root {
-      --ball-width: 60px;
+      --ball-width: 40rem;
     }
     .add-ball {
+      /* 这个要设置成透明的，让里面的内容显示 */
       position: fixed;
-      width: var(--ball-width);
-      height: var(--ball-width);
-      display: inline-block;
-      border-radius: 50%;
-      background-color: #E8C48F;
+      /*width: var(--ball-width);*/
+      /*height: var(--ball-width);*/
+      /*display: inline-block;*/
+      /*border-radius: 50%;*/
+      /*background-color: #E8C48F;*/
       text-align: center;
-      font-size: 16px;
+      font-size: 24rem;
       font-weight: bold;
       line-height: var(--ball-width);
-      z-index: 3;
+      z-index: 9;
       transition: .6s linear;
       left: 0;
       top: 0;
@@ -33,13 +38,26 @@
       width: var(--ball-width);
       height: var(--ball-width);
       border-radius: 50%;
+      position: absolute;
+      left: 20rem;
+    }
+
+    @keyframes footer-car-animate {
+      0%  {transform: scale(1)}
+      25% {transform: scale(.8)}
+      50% {transform: scale(1.2)}
+      75% {transform: scale(.9)}
+      100%{transform: scale(1)}
+    }
+    .ball.animate {
+      animation: footer-car-animate 0.5s ease-in-out;
     }
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 128px;
+      height: 100rem;
       background-color: cyan;
       display: flex;
       align-items: center;
@@ -47,17 +65,17 @@
     }
 
     .item {
-      height: 150px;
+      height: 200rem;
       background-color: cadetblue;
-      margin-top: 10px;
-      border-radius: 10px;
+      margin-top: 10rem;
+      border-radius: 10rem;
       position: relative;
     }
     .item .button {
       position: absolute;
       font-size: 0;
-      right: 30px;
-      top: 40px;
+      right: 30rem;
+      bottom: 30rem;
       cursor: pointer;
     }
     .item .button .fake-button {
@@ -67,7 +85,7 @@
       border-radius: 50%;
       background-color: #E8C48F;
       text-align: center;
-      font-size: 16px;
+      font-size: 24rem;
       font-weight: bold;
       line-height: var(--ball-width);
     }
@@ -79,10 +97,10 @@
       border-radius: 50%;
       background-color: #E8C48F;
       text-align: center;
-      font-size: 16px;
+      font-size: 24rem;
       font-weight: bold;
       line-height: var(--ball-width);
-      transition: .6s cubic-bezier(.5, -.5, 1, 1);
+      transition: .6s cubic-bezier(.5, -.25, 1, 1);
     }
   </style>
 </head>
@@ -112,29 +130,43 @@
   const carBall = document.querySelector('.ball')
 
   const rect = addBtn.getBoundingClientRect()
+  const start = {
+    x: rect.left,
+    y: rect.top
+  }
   const carRect = carBall.getBoundingClientRect()
-  console.log(carRect)
+  console.log(carRect, carBall)
+  const end = {
+    x: carRect.left + carRect.width / 2,
+    y: carRect.top + carRect.height / 2
+  }
   addBtn.addEventListener('click', animate)
+  carBall.addEventListener('animationend', function () {
+    this.classList.remove('animate')
+  })
 function animate(event) {
   // console.log(event)
 
   const ball = document.createElement('div')
+  ball.className = 'add-ball'
+
   const plus = document.createElement('span')
   plus.textContent = '+'
-  ball.className = 'add-ball'
+
   plus.className = 'plus'
-  ball.style.transform = `translateX(${rect.left}px)`
-  plus.style.transform = `translateY(${rect.top}px)`
+  ball.style.transform = `translateX(${start.x}px)`
+  plus.style.transform = `translateY(${start.y}px)`
   ball.append(plus)
   document.body.append(ball)
   ball.clientWidth;
 
-  ball.style.transform = `translateX(${carRect.left}px)`
-  plus.style.transform = `translateY(${carRect.top}px)`
+  ball.style.transform = `translateX(${end.x}px)`
+  plus.style.transform = `translateY(${end.y}px)`
 
 
   ball.addEventListener('transitionend', function () {
     ball.remove()
+    carBall.classList.add('animate')
   }, { once: true })
 }
 </script>
