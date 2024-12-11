@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Structure Animation</title>
+
+
+  <style>
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+    }
+
+    .item {
+      background-color: aquamarine;
+      border: 1px solid black;
+      height: 30px;
+      line-height: 30px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      width: 200px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="flip()">FLIP</button>
+  <ul>
+    <li class="item" id="first">HTML + CSS</li>
+    <li class="item">JavaScript</li>
+    <li class="item">框架</li>
+    <li class="item">NodeJS</li>
+    <li class="item">网络</li>
+    <li class="item">工程化</li>
+    <li class="item">移动端</li>
+  </ul>
+
+  <script>
+
+    function getPositionY() {
+      return firstItem.getBoundingClientRect().top
+    }
+    const list = document.querySelector('ul')
+    const firstItem = list.firstElementChild
+    const start = getPositionY()
+    function flip() {
+      list.insertBefore(firstItem, null)
+
+      const end = getPositionY()
+      const dis = end - start
+      firstItem.style.transform = `translateY(-${dis}px)`
+
+      requestAnimationFrame((time) => {
+        console.log('frame0', time)
+      })
+      // 内存里面已经移动到了指定位置
+      // 但是还未绘制
+      const callback = (time) => {
+        console.log('callback', time)
+        firstItem.style.transition = 'transform 1s'
+        firstItem.style.removeProperty('transform')
+      }
+      // delay(3000)
+      raf(callback)
+    }
+
+    function raf(callback) {
+      requestAnimationFrame(callback)
+      // requestAnimationFrame(() => {
+      //   requestAnimationFrame(callback)
+      // })
+    }
+
+    function delay(duration = 1000) {
+      const start = performance.now()
+      while (performance.now() - start < duration) {}
+    }
+  </script>
+</body>
+</html>
