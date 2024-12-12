@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>rAF</title>
+</head>
+<body>
+<script>
+
+  let now = performance.now();
+  console.log('now', now);
+
+  let times = 0;
+  function callback(t) {
+    console.log('t-now-gap', t, now, t-now)
+    now = t
+    if (times++ <=10) {
+      requestAnimationFrame(callback)
+    }
+  }
+  requestAnimationFrame(callback)
+</script>
+</body>
+</html>

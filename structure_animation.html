@@ -52,10 +52,10 @@
       const end = getPositionY()
       const dis = end - start
       firstItem.style.transform = `translateY(-${dis}px)`
-
-      requestAnimationFrame((time) => {
-        console.log('frame0', time)
-      })
+      console.log(performance.now())
+      // requestAnimationFrame((time) => {
+      //   console.log('frame0', time)
+      // })
       // 内存里面已经移动到了指定位置
       // 但是还未绘制
       const callback = (time) => {
