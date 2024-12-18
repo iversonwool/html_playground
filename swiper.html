@@ -6,21 +6,93 @@
   <style>
     .container {
       height: 400px;
-      background-color: cyan;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+    }
+    .swiper_container {
+      height: 190px;
+      width: 300px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .item_container {
+      height: 100%;
+      width: 100%;
+      display: flex;
     }
     .item {
-      height: 320px;
-      width: 200px;
-      border-radius: 10px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-      margin: 0 30px;
-      z-index: 1;
+      width: 300px;
+      height: 190px;
+      line-height: 190px;
+      text-align: center;
+      flex-shrink: 0;
+      font-size: 36px;
+    }
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="item"></div>
+
+    <div class="swiper_container">
+      <button type="button" onclick="goLeft()"><</button>
+      <button type="button" onclick="goRight()" style="right: 0">&gt;</button>
+      <div class="item_container">
+        <div class="item" style="background-color: blue;margin-left: -100%">3</div>
+
+        <div class="item" style="background-color: red">1</div>
+        <div class="item" style="background-color: green">2</div>
+        <div class="item" style="background-color: blue">3</div>
+
+        <div class="item" style="background-color: red">1</div>
+
+      </div>
+    </div>
+
   </div>
+
+
+  <script>
+    const itemContainer = document.querySelector('.item_container')
+
+    const items = 3;// 假设3张 red green blue
+    let idx = 0
+    function goLeft() {
+      idx -=1
+      if (idx === -1) {
+        // 迅速跳到最后添加在尾部的那张
+        itemContainer.style.transform = `translateX(-${items * 100}%)`
+        itemContainer.style.removeProperty('transition')
+        // 触发回流
+        itemContainer.clientWidth;
+        idx = 2;
+      }
+      swiper()
+    }
+    function goRight() {
+      idx++;
+      if (idx === 3) {
+// 迅速跳到最后添加在尾部的那张
+        itemContainer.style.transform = `translateX(100%)`
+        itemContainer.style.removeProperty('transition')
+        // 触发回流
+        itemContainer.clientWidth;
+        idx = 0;
+      }
+      swiper()
+    }
+    function swiper() {
+      // if (idx === )
+      itemContainer.style.transform = `translateX(-${idx*100}%)`
+      itemContainer.style.transition = `transform .25s`
+    }
+  </script>
 </body>
 </html>
