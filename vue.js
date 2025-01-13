@@ -9294,7 +9294,7 @@
       TransitionGroup: TransitionGroup
   };
 
-  // install platform specific utils
+  // install platform specific utils.js
   Vue.config.mustUseProp = mustUseProp;
   Vue.config.isReservedTag = isReservedTag;
   Vue.config.isReservedAttr = isReservedAttr;
