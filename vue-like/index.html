@@ -11,22 +11,54 @@
 import {reactive} from './reactive.js'
 import {effect} from "./effect.js";
 import {ref} from "./ref.js";
+import {computed} from "./computed.js";
 const v = ref(1)
 const data = reactive({sss:'1', a: 3, b: 2})
 
 const obj = {}
 const data2 = reactive([1, 3, 4, obj])
-function fn() {
-  console.log("fn")
-  // data.a++
-
-  v.value
-}
-
-effect(fn)
+// function fn() {
+//   console.log("fn")
+//   data.a++
+//
+//   // v.value
+// }
+// let isRun = false
+// const effectFn= effect(fn, {
+//   scheduler: (eff) =>{
+//     // console.log('scheduler')
+//     Promise.resolve().then(() => {
+//       if (!isRun) {
+//         isRun =true
+//         eff()
+//       }
+//     })
+//   }
+// })
+// effectFn()
+// data.a++;
+// data.a++;
 v.value = 2
+v.value = 3
+v.value = 4
+v.value = 5
+const result=  computed(() => {
+  console.log('computed')
+  return data.a + data.b
+})
+result.value
+result.value
+result.value
+
+
 // data.sss = '4'
-// data.a = 4
+data.a = 4
+result.value
+
+effect(() => {
+  console.log(result.value)
+})
+data.a = 5
 </script>
 </body>
 </html>

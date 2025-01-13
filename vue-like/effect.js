@@ -62,7 +62,12 @@ function trigger(target, type, key) {
     if (fn === activeEffect) {
       continue
     }
-    fn()
+    if (fn.options.scheduler) {
+      fn.options.scheduler(fn)
+    } else {
+      fn()
+
+    }
   }
 }
 
@@ -117,6 +122,9 @@ function effect(fn, options ={}) {
     }
   }
   effectFn.deps = []
+  //scheduler
+
+  effectFn.options = options
   if (!lazy) {
     effectFn()
   }
