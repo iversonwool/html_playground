@@ -24,6 +24,39 @@
       background: red;
       color: #fff;
       font-size: 14px;
+
+    }
+    .custom-content-marker {
+      position: relative;
+      /*width: 25px;*/
+      height: 34px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 2px 6px;
+      background-color: magenta;
+      border-radius: 17px;
+    }
+
+    /*.custom-content-marker img {*/
+    /*  width: 100%;*/
+    /*  height: 100%;*/
+    /*}*/
+
+    .custom-content-marker .triangle {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid magenta; /* 黄色三角形 */
+    }
+
+    .custom-content-marker .close-btn:hover{
+      background: #666;
     }
   </style>
 </head>
@@ -43,6 +76,26 @@
     zoom: 4
   });
   var navg = null
+  var position = new AMap.LngLat(116.397428, 39.90923);
+
+  // 点标记显示内容，HTML要素字符串
+  var markerContent = '' +
+    '<div class="custom-content-marker">' +
+    '   <img alt="logo" style="width: 30px; height:30px;background-color: cyan;border-radius: 15px;">' +
+    '   <span style="color: white;font-size: 18px;margin-left: 6px;">31111111111112</span>' +
+    '   <div class="triangle""></div>' +
+    '</div>';
+
+  var marker = new AMap.Marker({
+    position: position,
+    // 将 html 传给 content
+    content: markerContent,
+    // 以 icon 的 [center bottom] 为原点
+    offset: new AMap.Pixel(-13, -30)
+  });
+
+  // 将 markers 添加到地图
+  map.add(marker);
 
   AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(PathSimplifier, $) {
 
