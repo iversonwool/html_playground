@@ -4,7 +4,78 @@
   <meta charset="UTF-8">
   <title>Copy</title>
 </head>
+<style>
+  /* 方案 A：伪元素 ::before 做顶部渐变，底色由容器背景决定（推荐） */
+  #gradient {
+    position: relative;
+    background-color: #f5f5f5; /* 底部纯色，可修改 */
+    margin: 16px 0;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 6px;
+    overflow: visible;
+  }
+
+  #gradient::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 140px; /* 固定高度 */
+    /* 单层横向渐变（占据顶部 140px），下方为容器背景色 */
+    background: linear-gradient(to right, #007bff, #28a745);
+    background-size: 100% 140px;
+    background-position: left top;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  #gradient .content {
+    position: relative;
+    z-index: 1; /* 确保显示在渐变之上 */
+    padding: 16px;
+  }
+
+  /* 方案 B：单元素多重背景（备用） */
+  #gradient2 {
+    margin: 16px 0;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 6px;
+    /* 多重背景：第一层为顶部横向渐变（140px），第二层为底色（其余高度） */
+    background-image:
+      linear-gradient(to right, #007bff, #28a745),
+      linear-gradient(#f5f5f5, #f5f5f5);
+    background-size: 100% 140px, 100% calc(100% - 140px);
+    background-position: left top, left bottom;
+    background-repeat: no-repeat, no-repeat;
+    padding: 16px;
+  }
+
+  /* 演示内的文本样式（可删） */
+  .demo-title { margin: 0 0 8px 0; font-size: 18px; }
+  .demo-p { margin: 6px 0; height: 50px }
+
+</style>
 <body>
+
+
+  <div id="gradient" class="">
+    <div class="content">
+      <h2 class="demo-title">方案 A：伪元素 ::before（推荐）</h2>
+      <p class="demo-p">顶部 140px 为从左到右的渐变（蓝 → 绿），下面是纯色区域，纯色高度由内容撑开。</p>
+      <p class="demo-p">多加几行内容用于展示底色被内容撑开的效果。</p>
+      <p class="demo-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+    </div>
+  </div>
+
+  <div id="gradient2">
+    <h2 class="demo-title">方案 B：多重背景（单元素）</h2>
+    <p class="demo-p">这是同样的视觉：顶部 140px 渐变，底部纯色；但用的是多个 background 层。</p>
+    <p class="demo-p">注意：当元素高度小于 140px 时，结果可能与预期不同；可以配合 min-height:140px 使用。</p>
+  </div>
 <button id="copy_btn" onclick="onCopy()">
   Copy
 </button>
